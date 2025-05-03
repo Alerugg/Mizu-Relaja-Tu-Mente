@@ -59,28 +59,32 @@ def get_services_by_type(stype):
 
 @api.route("/services", methods=["POST"])
 def create_service():
-    d = request.get_json() or {}
+    data = request.get_json() or {}
+
     srv = Service(
-        title=d["title"],
-        subtitle=d["subtitle"],
-        description=d["description"],
-        predescription=d["predescription"],
-        allergens=d.get("allergens"),
-        products=d["products"],
-        cost=d["cost"],
-        service_type=d["service_type"],
-        booking_url=d.get("booking_url"),
-        duration=d.get("duration"),
-        location=d.get("location"),
-        includes=d.get("includes"),
-        benefits=d.get("benefits"),
-        important_notes=d.get("important_notes"),
-        recommended_for=d.get("recommended_for"),
-        image=d.get("image")
+        title            = data["title"],
+        subtitle         = data["subtitle"],
+        description      = data["description"],
+        predescription   = data["predescription"],
+        allergens        = data.get("allergens"),
+        products         = data["products"],
+        cost             = data["cost"],
+        service_type     = data["service_type"],
+        booking_url      = data.get("booking_url"),
+        giftcard_url     = data.get("giftcard_url"),   #  ← NUEVO
+        duration         = data.get("duration"),
+        location         = data.get("location"),
+        includes         = data.get("includes"),
+        benefits         = data.get("benefits"),
+        important_notes  = data.get("important_notes"),
+        recommended_for  = data.get("recommended_for"),
+        image_url        = data.get("image_url")       #  ← NUEVO
     )
+
     db.session.add(srv)
     db.session.commit()
     return jsonify(srv.serialize()), 201
+
 
 
 @api.route("/services/<int:sid>", methods=["PUT"])

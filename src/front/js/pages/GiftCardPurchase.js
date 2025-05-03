@@ -1,106 +1,123 @@
+// ──────────────────────────────────────────────────────────────
 // src/pages/GiftCardPurchase.jsx
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// ──────────────────────────────────────────────────────────────
+import React, { useEffect, useState, useContext } from "react";
+import { Context } from "../store/appContext";          //  ← tu Flux
 import "../../styles/giftcard.css";
 
 export function GiftCardPurchase() {
-  const navigate = useNavigate();
-  const [services, setServices] = useState([]);
+  const { store, actions } = useContext(Context);
+
+  /* 1 . Descarga servicios una sola vez */
+  useEffect(() => { actions.fetchServices(); }, []);
+
+  /* 2 . UI state */
+  const [category, setCategory] = useState("individual");   // pestaña activa
   const [form, setForm] = useState({
     giver_email:    "",
     receiver_email: "",
-    service_id:     ""  // se llenará con el primer service.id
+    service_id:     ""
   });
   const [error, setError] = useState("");
 
-  // Carga la lista de servicios disponibles para el selector
+  /* 3 . Lista filtrada por pestaña */
+  const visibles =
+    category === "individual" ? store.servicesIndividuales : store.servicesDuos;
+
+  /* cuando cambia la lista auto-selecciona el 1.º si no hay ninguno */
   useEffect(() => {
-    fetch("/api/services")
-      .then(res => res.json())
-      .then(data => {
-        setServices(data);
-        if (data.length > 0) {
-          setForm(f => ({ ...f, service_id: data[0].id }));
-        }
-      })
-      .catch(() => setError("No se pudieron cargar los servicios."));
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm(f => ({ ...f, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      const res = await fetch("/api/gift-cards/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.msg || "Error al crear la gift‑card");
-      }
-      const { checkout_url } = await res.json();
-      window.location.href = checkout_url;
-    } catch (err) {
-      setError(err.message);
+    if (visibles.length && !form.service_id) {
+      setForm(f => ({ ...f, service_id: visibles[0].id }));
     }
+  }, [visibles]);
+
+  /* ───── helpers ───── */
+  const handleInput = e =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const selectService = id =>
+    setForm({ ...form, service_id: id });
+
+  /* 4 . Submit → redirige directo al enlace de Stripe */
+  const handleSubmit = e => {
+    e.preventDefault();
+    const chosen = store.services.find(s => s.id === form.service_id);
+
+    if (!chosen?.giftcard_url) {            // ⚠️ usamos giftcard_url
+      setError("No se encontró enlace de pago para ese servicio.");
+      return;
+    }
+
+    /* ➜ Opcionalmente envía los e-mails al backend aquí … */
+
+    window.location.href = chosen.giftcard_url;   // ← Stripe Checkout
   };
 
   return (
     <section className="gc-section">
-      <h1 className="gc-title">Regala Bienestar con Mizu</h1>
+
+      <h1 className="gc-title">Regala bienestar con Mizu</h1>
       {error && <p className="gc-error">{error}</p>}
+
+      {/* ── pestañas ─────────────────── */}
+      <div className="gc-tabs">
+        <button
+          className={category === "individual" ? "active" : ""}
+          onClick={() => { setCategory("individual"); setForm(f=>({...f,service_id:""})); }}
+        >
+          Individuales
+        </button>
+        <button
+          className={category === "duo" ? "active" : ""}
+          onClick={() => { setCategory("duo"); setForm(f=>({...f,service_id:""})); }}
+        >
+          Parejas
+        </button>
+      </div>
+
+      {/* ── lista tipo “pill” ─────────── */}
+      <div className="gc-pill-list">
+        {visibles.map(s => (
+          <label key={s.id} className="gc-pill-wrapper">
+            <input
+              type="radio"
+              name="service_id"
+              value={s.id}
+              checked={form.service_id === s.id}
+              onChange={() => selectService(s.id)}
+            />
+            <span className="gc-pill">
+              <span className="gc-pill-title">{s.title}</span>
+              <span className="gc-pill-price">€{s.cost.toFixed(2)}</span>
+            </span>
+          </label>
+        ))}
+      </div>
+
+      {/* ── formulario ───────────────── */}
       <form className="gc-form" onSubmit={handleSubmit}>
         <div className="gc-form-group">
-          <label htmlFor="giver_email">Tu correo electrónico*</label>
+          <label>Tu e-mail*</label>
           <input
             type="email"
-            id="giver_email"
             name="giver_email"
             value={form.giver_email}
-            onChange={handleChange}
+            onChange={handleInput}
             required
-            placeholder="tucorreo@ejemplo.com"
           />
         </div>
 
         <div className="gc-form-group">
-          <label htmlFor="receiver_email">Correo destinatario (opcional)</label>
+          <label>E-mail del destinatario (opcional)</label>
           <input
             type="email"
-            id="receiver_email"
             name="receiver_email"
             value={form.receiver_email}
-            onChange={handleChange}
-            placeholder="destino@ejemplo.com"
+            onChange={handleInput}
           />
         </div>
 
-        <div className="gc-form-group">
-          <label htmlFor="service_id">Selecciona un servicio*</label>
-          <select
-            id="service_id"
-            name="service_id"
-            value={form.service_id}
-            onChange={handleChange}
-            required
-          >
-            {services.map(s => (
-              <option key={s.id} value={s.id}>
-                {s.title} — €{s.cost.toFixed(2)}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <button type="submit" className="gc-btn">
-          Continuar con el pago
-        </button>
+        <button className="gc-btn">Ir a pago seguro</button>
       </form>
     </section>
   );
