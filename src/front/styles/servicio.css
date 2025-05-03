@@ -1,161 +1,153 @@
 /* =========================================================
-   SERVICIO – Detalle de un servicio
+   FICHA TÉCNICA DE SERVICIO  – clases prefijo .svc*
    ========================================================= */
 
-   .servicio-container {
-    min-height: 100vh;
-    position: relative;
-    padding: 6rem 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+/* ----- contenedor general ----- */
+.svcDetail{
+  min-height:100vh;
+  padding:6rem 1rem 5rem;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  position:relative;
+}
+
+/* ---------- CARD ÚNICO (⬇︎ 25 % ancho, ⬇︎ 20 % spacing, fondo .72) ---------- */
+.svcCard{
+  width:90%;                           /* ocupa ±90 % del viewport */
+  max-width:900px;                     /* antes 1200px → 25 % + estrecho */
+  background:rgba(255,255,255,.72);    /* más translúcido */
+  backdrop-filter:blur(6px);
+  border:1px solid var(--c-sand);
+  border-radius:var(--radius-xl);
+  padding:2.2rem 1.8rem;               /* compacto */
+  box-shadow:var(--shadow-lg);
+  color:var(--c-primary);
+  display:flex;
+  flex-direction:column;
+  gap:1.8rem;
+}
+
+/* ==================== CABECERA ==================== */
+.svcHead{
+  display:flex;
+  gap:1.8rem;
+  flex-wrap:wrap;
+}
+
+/* ► FOTO 25 % más pequeña */
+.svcImg{
+  flex:0 0 295px;
+  width:100%;
+  max-width:245px;
+  border-radius:var(--radius-xl);
+  object-fit:cover;
+  box-shadow:var(--shadow-lg);
+}
+@media(max-width:768px){
+  .svcImg{
+    max-width:100%;
+    height:180px;
   }
-  .servicio-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(244, 242, 239, 0.85);
-    backdrop-filter: blur(2px);
-    z-index: -1;
-  }
-  
-  .servicio-card {
-    max-width: 1320px;  /* antes 1200px */
-    width: 100%;
-    background: var(--c-bg-t);
-    border: 1px solid var(--c-sand);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
-    backdrop-filter: blur(6px);
-    padding: 3rem 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .servicio-header {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .servicio-image {
-    width: 360px;
-    max-width: 100%;
-    border-radius: var(--radius-xl);
-    object-fit: cover;
-    box-shadow: var(--shadow-lg);
-  }
-  
-  .servicio-info {
-    max-width: 600px;
-    text-align: left;
-    color: var(--c-primary);
-  }
-  
-  .servicio-title {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: var(--c-sand);
-  }
-  
-  .servicio-subtitle {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--c-secondary);
-    margin: 0.5rem 0 1.2rem;
-  }
-  
-  .servicio-cost {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-top: 0.3rem;
-    color: var(--c-primary);
-  }
-  
-  .servicio-details {
-    color: #444;
-    line-height: 1.6;
-  }
-  
-  .servicio-section {
-    margin-bottom: 2.2rem;
-  }
-  
-  .servicio-section h4 {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--c-secondary);
-    margin-bottom: 0.8rem;
-  }
-  
-  .servicio-section p,
-  .servicio-section ul {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: #444;
-    text-align: justify;
-    margin-left: 0;
-    padding-left: 1.2rem;
-  }
-  
-  .servicio-section ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-  }
-  
-  .servicio-section li {
-    margin-bottom: 0.6rem;
-    list-style-type: disc;
-    list-style-position: outside;
-  }
-  
-  /* ---------- Botón ---------- */
-  .reservar-button {
-    align-self: flex-start;
-    background: var(--c-primary);
-    color: var(--c-bg);
-    border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .reservar-button:hover {
-    background: var(--c-accent);
-    color: var(--c-primary);
-  }
-  
-  .reservar-button:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-  }
-  
-  /* ---------- Responsive ---------- */
-  @media (max-width: 767px) {
-    .servicio-card {
-      padding: 1.8rem;
-    }
-    .servicio-header {
-      flex-direction: column;
-    }
-    .servicio-image {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-    .servicio-info {
-      text-align: center;
-    }
-    .servicio-details {
-      text-align: justify;
-    }
-    .reservar-button {
-      align-self: center;
-    }
-  }
-  
+}
+
+.svcBasics{
+  flex:1 1 240px;
+  align-self:center;
+}
+
+/* ► Títulos principales */
+.svcTitle{
+  font-size:3rem;
+  font-weight:1000;
+  color:var(--c-secondary);
+  margin-bottom:.8rem;      /* ↑ más espacio antes del bloque Precio/Duración */
+}
+.svcSubtitle{
+  font-size:1.12rem;
+  font-weight:900;
+  color:var(--c-secondary);
+  margin-bottom:.9rem;
+}
+
+/* ► Precio / duración / ubicación */
+.svcPrice{
+  font-size:.92rem;
+  font-weight:700;
+  margin:0 0 .15rem 0;      /* ↓ pegamos Duración y Ubicación */
+}
+.svcBasics p{
+  font-size:.92rem;
+  margin:.15rem 0;          /* casi sin espacio vertical */
+}
+
+/* ==================== TEXTO ==================== */
+.svcSection{
+  font-size:1.06rem;
+  font-weight:1000;
+  color:var(--c-secondary);
+  margin-bottom:.9rem;     /* ⬅︎ mucho más pegado al texto */
+  text-decoration:none;     /* ⬅︎ elimina subrayado */
+}
+
+
+.svcDescription{
+  line-height:1.5;
+  text-align:justify;
+  font-size:.96rem;
+  margin-bottom:.55rem;
+  margin-top: -29px;
+}
+
+/* ---------- columnas ---------- */
+.svcCols{
+  display:grid;
+  gap:1.4rem 2.2rem;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+}
+
+.svcCols ul{
+  list-style:none;
+  margin:0;
+  padding-left:0;
+  font-size:.96rem;
+  line-height:1.5;
+}
+.svcCols li{
+  position:relative;
+  padding-left:1.1rem;
+  margin-bottom:.45rem;
+}
+.svcCols li::before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--c-primary);
+  font-size:1.05rem;
+}
+
+/* ---------- BOTÓN ---------- */
+.svcBtn{
+  align-self:center;
+  background:var(--c-primary);
+  color:var(--c-bg);
+  border:none;
+  border-radius:8px;
+  padding:.8rem 2rem;
+  font-size:.9rem;
+  cursor:pointer;
+  transition:background .3s;
+}
+.svcBtn:hover{
+  background:var(--c-accent);
+  color:var(--c-primary);
+}
+.svcBtn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+/* -------------------- RESPONSIVE EXTRA -------------------- */
+@media(max-width:540px){
+  .svcCard{width:95%;padding:2rem 1rem;}
+}

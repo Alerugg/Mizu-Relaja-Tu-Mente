@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "../../styles/navbar.css";
+import "../../styles/app.css";
 import logomizu from "../../img/logosolo.png";
 
 export const Navbar = () => {

@@ -10,7 +10,6 @@ import { Demo } from "./pages/demo";
 import { Individuales } from "./pages/individuales";
 import { Parejas } from "./pages/parejas";
 import { Servicio } from "./pages/servicio";
-import { ContactUs } from "./pages/contactUs";
 import { Single } from "./pages/single";
 import { PrivacyPolicy } from "./pages/privacyPolicy";
 import {GiftCardPurchase} from "./pages/GiftCardPurchase";
@@ -48,7 +47,6 @@ const Layout = () => {
                         <Route element={<PrivacyPolicy />} path="/privacy" />
                         <Route element={<Parejas />} path="/parejas" />
                         <Route element={<Servicio />} path="/servicio/:id" />
-                        <Route element={<ContactUs />} path="/contact" />
                         <Route element={<GiftCardPurchase />} path="/gift-card" />
                         <Route element={<GiftCardRedeem />} path="/contact" />
                         <Route element={<Single />} path="/single/:theid" />
