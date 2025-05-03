@@ -28,7 +28,7 @@ export const Home = () => {
         <h2 className="services-title fw-bold">Nuestros Servicios</h2>
 
         <ServiceCard
-          img="https://res.cloudinary.com/dfagobkwv/image/upload/f_auto,q_auto,w_900/v1745020646/1_INTRO_ANDRÉS.mp4.00_00_07_08.Imagen_fija001_itfh5e.jpg"
+          img="https://res-console.cloudinary.com/dfagobkwv/thumbnails/v1/image/upload/v1746306979/SU1HXzMzOThfbHRxd3gxX2xhaW9qbw==/drilldown"
           title="Experiencia Individual"
           subtitle="Un ritual solo para ti"
           to={go("/individuales")}
@@ -47,7 +47,7 @@ export const Home = () => {
 
         <ServiceCard
           reverse
-          img="https://res.cloudinary.com/dfagobkwv/image/upload/f_auto,q_auto,w_900/v1745019948/2_GENERALES.mp4.00_00_05_10.Imagen_fija001_evt0wr.jpg"
+          img="https://res.cloudinary.com/dfagobkwv/image/upload/v1746307134/20250421_181111_bqg7wq.jpg"
           title="Experiencia Doble"
           subtitle="Comparte un ritual con quien tú elijas"
           to={go("/parejas")}
@@ -64,7 +64,7 @@ export const Home = () => {
         </ServiceCard>
 
         <ServiceCard
-          img="https://res.cloudinary.com/dfagobkwv/image/upload/f_auto,q_auto,w_900/v1745019948/2_GENERALES.mp4.00_00_05_10.Imagen_fija001_evt0wr.jpg"
+          img="https://res.cloudinary.com/dfagobkwv/image/upload/v1745020644/20240624_180900_md3mpu.jpg"
           title="Regala una Experiencia Mizu"
           subtitle="Un regalo transformador para alguien especial"
           to={go("/gift-card")}

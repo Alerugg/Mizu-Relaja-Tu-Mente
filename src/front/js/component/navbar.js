@@ -16,7 +16,8 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light custom-navbar">
-      <div className="container-fluid d-flex flex-column flex-lg-row align-items-center justify-content-between">
+     <div className="container-fluid d-flex align-items-center
++                 justify-content-between flex-wrap">
 
         {/* ----------  LOGO  ---------- */}
         <Link className="navbar-brand" to="/" onClick={close}>
