@@ -35,6 +35,7 @@ class Service(db.Model):
     title = db.Column(db.String(150), nullable=False)
     subtitle = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    predescription = db.Column(db.Text, nullable=False)
     allergens = db.Column(db.Text, nullable=True)
     products = db.Column(db.Text, nullable=False)
     cost = db.Column(db.Float, nullable=False)
@@ -59,6 +60,7 @@ class Service(db.Model):
             "title": self.title,
             "subtitle": self.subtitle,
             "description": self.description,
+            "predescription": self.predescription,
             "allergens": self.allergens,
             "products": self.products,
             "cost": self.cost,

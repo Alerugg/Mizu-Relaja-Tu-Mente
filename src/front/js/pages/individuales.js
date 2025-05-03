@@ -45,7 +45,7 @@ export const Individuales = () => {
                                 <div className="indiv-card-body">
                                     <h2 className="indiv-card-title">{service.title}</h2>
                                     <h4 className="indiv-card-subtitle">{service.subtitle}</h4>
-                                    <p className="indiv-card-description">{service.description}</p>
+                                    <p className="indiv-card-description">{service.predescription}</p>
                                     <button className="indiv-card-btn" onClick={() => handleNavigateToService(service.id)}>
                                         Ver Servicio
                                     </button>

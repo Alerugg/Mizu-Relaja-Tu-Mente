@@ -64,6 +64,7 @@ def create_service():
         title=d["title"],
         subtitle=d["subtitle"],
         description=d["description"],
+        predescription=d["predescription"],
         allergens=d.get("allergens"),
         products=d["products"],
         cost=d["cost"],
