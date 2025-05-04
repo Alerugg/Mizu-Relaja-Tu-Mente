@@ -1,51 +1,69 @@
-// PAREJAS COMPONENTE
+// ----------------------------------------------------------
+//  PAREJAS – Servicios en pareja
+// ----------------------------------------------------------
 import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import ejemplo1 from "../../img/test3.png";
+import placeholder from "../../img/test3.png";          // imagen de respaldo
 import "../../styles/parejas.css";
 
 export const Parejas = () => {
   const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
+  const navigate           = useNavigate();
 
+  // ▸ Carga inicial (solo si aún no están en el store)
   useEffect(() => {
-    if (store.services.length === 0) actions.fetchServices();
+    if (store.servicesDuos.length === 0) actions.fetchServices();
   }, []);
 
-  const serviciosDuo = store.services.filter(s => s.service_type === "duo");
+  // Lista ya filtrada en el Flux
+  const serviciosDuo = store.servicesDuos;
 
-  const handleViewService = (id) => {
-    navigate(`/servicio/${id}`);
-  };
+  const handleViewService = (id) => navigate(`/servicio/${id}`);
 
   return (
     <section className="parejas-section">
       <div className="parejas-overlay">
         <h1 className="parejas-title">Servicios en Pareja</h1>
+
         <div className="parejas-card-list">
-          {serviciosDuo.length > 0 ? (
-            serviciosDuo.map((servicio, index) => (
-              <div key={servicio.id} className={`parejas-card-container ${index % 2 !== 0 ? "reverse" : ""}`}>
+          {serviciosDuo.length ? (
+            serviciosDuo.map((svc, i) => (
+              <div
+                key={svc.id}
+                className={`parejas-card-container ${i % 2 ? "reverse" : ""}`}
+              >
                 <div className="parejas-img-wrapper">
                   <img
-                    src={servicio.image || ejemplo1}
-                    alt={servicio.title}
+                    src={svc.image_url || placeholder}
+                    alt={svc.title}
                     className="parejas-img"
                   />
                 </div>
+
                 <div className="parejas-card-body">
-                  <h2 className="parejas-card-title">{servicio.title}</h2>
-                  <h3 className="parejas-card-subtitle">{servicio.subtitle}</h3>
-                  <p className="parejas-card-description">{servicio.description}</p>
-                  <button className="parejas-card-btn" onClick={() => handleViewService(servicio.id)}>
-                    Ver Servicio
+                  <h2 className="parejas-card-title">{svc.title}</h2>
+                  <h3 className="parejas-card-subtitle">{svc.subtitle}</h3>
+
+                  {/*  Permite que backend envíe <ul><li>… */}
+                  <div
+                    className="parejas-card-description"
+                    dangerouslySetInnerHTML={{ __html: svc.description }}
+                  />
+
+                  <button
+                    className="parejas-card-btn"
+                    onClick={() => handleViewService(svc.id)}
+                  >
+                    Ver servicio
                   </button>
                 </div>
               </div>
             ))
           ) : (
-            <p className="parejas-empty-text">No hay servicios disponibles en este momento.</p>
+            <p className="parejas-empty-text">
+              Cargando experiencias para dos…
+            </p>
           )}
         </div>
       </div>

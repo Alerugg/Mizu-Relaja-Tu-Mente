@@ -37,7 +37,7 @@ export const Individuales = () => {
                             >
                                 <div className="indiv-image-wrapper">
                                     <img
-                                        src={"https://res.cloudinary.com/dfagobkwv/image/upload/v1745020646/1_INTRO_ANDR%C3%89S.mp4.00_00_07_08.Imagen_fija001_itfh5e.jpg"}
+                                        src={service.image_url}
                                         alt={service.title}
                                         className="indiv-img"
                                     />

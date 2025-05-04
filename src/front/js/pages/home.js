@@ -64,7 +64,7 @@ export const Home = () => {
         </ServiceCard>
 
         <ServiceCard
-          img="https://res.cloudinary.com/dfagobkwv/image/upload/v1746308494/20250428_1051_Relaxing_Spa_Ambiance_remix_01jsxse468enhrzmrdebp0j1jg_lassdn.png"
+          img="https://res.cloudinary.com/dfagobkwv/image/upload/v1745534265/9_afuera_-_adentro.mp4.00_00_00_22.Imagen_fija001_cnfqhx.jpg"
           title="Regala una Experiencia Mizu"
           subtitle="Un regalo transformador para alguien especial"
           to={go("/gift-card")}

@@ -37,7 +37,7 @@ export const Servicio = () => {
         {/* ---------- cabecera ---------- */}
         <header className="svcHead">
           <img
-            src={srv.image || fallbackImg}
+            src={srv.image_url || fallbackImg}
             alt={srv.title}
             className="svcImg"
           />
