@@ -42,6 +42,12 @@ export const Home = () => {
             <li>Masaje relajante sobre nuestra exclusiva camilla con aro de agua templada, que envuelve y relaja.</li>
             <li>Masajes con técnicas japonesas para liberar tensiones acumuladas y restaurar el flujo de energía.</li>
             <li>Ideal para quienes buscan aliviar el estrés, la ansiedad o el agotamiento mental de forma relajante y sensorial.</li>
+            <a href="https://wa.me/34691352596?text=Hola%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios" target="_blank">
+  <img src="whatsapp-icon.png" alt="WhatsApp"></img>
+</a>
+
+
+
           </ul>
         </ServiceCard>
 
